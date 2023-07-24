@@ -1,0 +1,28 @@
+# Sample policy data (you can customize this according to your needs)
+policy_data = {
+    "admin": ["read", "write", "delete"],
+    "user": ["read"]
+}
+
+def validate_policy(user_role, user_permission):
+    """
+    Validate if a user with a specific role has the required permission.
+
+    Parameters:
+        user_role (str): The role of the user.
+        user_permission (str): The permission being requested.
+
+    Returns:
+        bool: True if the user has the required permission, False otherwise.
+    """
+    if user_role in policy_data:
+        allowed_permissions = policy_data[user_role]
+        if user_permission in allowed_permissions:
+            return True
+
+    return False
+
+# Test cases
+print(validate_policy("admin", "read"))  # True
+print(validate_policy("user", "write"))  # False
+print(validate_policy("guest", "read"))  # False
